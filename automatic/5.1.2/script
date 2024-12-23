@@ -347,7 +347,7 @@ rm /tmp/cron-jobs.txt
 
 
 ### Create database.
-MYSQL_PASSWORD="rootpassword"
+MYSQL_PASSWORD=$(openssl rand -base64 32)
 mysql -u root -prootpassword -e "CREATE DATABASE mautic DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
 mysql -u root -prootpassword -e "GRANT ALL ON mautic.* TO 'root'@'localhost' IDENTIFIED BY 'rootpassword';"
 mysql -u root -prootpassword -e "FLUSH PRIVILEGES;"
@@ -376,7 +376,7 @@ find /var/www/html -type d -exec chmod 755 -- {} +; find /var/www/html -type f -
 service apache2 restart
 echo
 snap install --classic certbot
-certbot --apache -d "$MAUTIC_DOMAIN" --non-interactive --agree-tos --email automautic@mktg.dev
+certbot --apache -d "$MAUTIC_DOMAIN" --non-interactive --agree-tos --email server@oiboston.org
 
 
 ### Finalizing Installation
